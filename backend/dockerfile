@@ -1,0 +1,7 @@
+FROM rust:latest as rust
+WORKDIR /app
+COPY . .
+RUN cargo install --path .
+EXPOSE 8000
+
+CMD cargo run

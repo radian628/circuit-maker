@@ -1,0 +1,33 @@
+version: "3"
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./dockerfile
+    depends_on: []
+    ports: []
+    networks: []
+    volumes:
+      - ./frontend/src:/app/src
+      - frontend-build:/app/build
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ./dockerfile
+    depends_on:
+      - frontend
+    ports:
+      - "8000:8000"
+    networks:
+      - backend-network
+    volumes:
+      - ./backend/src:/app/src
+      - frontend-build:/app/static
+
+networks:
+  backend-network:
+    driver: bridge
+
+volumes:
+  frontend-build:
